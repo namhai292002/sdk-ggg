@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced SDK Demo - Multiple Configurations</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .demo-section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      margin: 15px 0;
+    }
+    .demo-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    .demo-btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .demo-btn:hover {
+      transform: translateY(-2px);
+    }
+    .demo-btn.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .demo-btn.blue { background: linear-gradient(135deg, #1167b1 0%, #0f5d9f 100%); color: white; }
+    .demo-btn.green { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); color: white; }
+    .demo-btn.red { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; }
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    .feature-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .feature-list li:before {
+      content: "✅ ";
+      margin-right: 10px;
+    }
+    .widget-demo {
+      border: 2px dashed #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-section">
+    <h1>🚀 Advanced Shopping Cart SDK</h1>
+    <p>SDK nâng cao với Shadow DOM, config động, không xung đột CSS với website khách</p>
+    
+    <h2>✨ Tính năng nâng cấp:</h2>
+    <ul class="feature-list">
+      <li><strong>Shadow DOM:</strong> Hoàn toàn tách biệt CSS, không xung đột với website</li>
+      <li><strong>Config động:</strong> Truyền config qua data-attributes hoặc JS</li>
+      <li><strong>Multi-theme:</strong> 4 themes màu (purple, blue, green, red)</li>
+      <li><strong>Flexible position:</strong> 4 vị trí nút floating (bottom-right, bottom-left, top-right, top-left)</li>
+      <li><strong>Multi-currency:</strong> Hỗ trợ nhiều loại tiền tệ và locale</li>
+      <li><strong>Widget mode:</strong> Có thể render vào div cụ thể</li>
+      <li><strong>Public API:</strong> Các method public để control từ JS</li>
+      <li><strong>Mobile-ready:</strong> Tương thích WebView cho mobile app</li>
+    </ul>
+  </div>
+
+  <div class="demo-section">
+    <h2>📝 Cách 1: Load script với data-attributes (giống Shopify)</h2>
+    <div class="code-block">&lt;script 
+  src="https://your-cdn.com/embed.js"
+  data-site-id="my-store"
+  data-theme="purple"
+  data-position="bottom-right"
+  data-currency="VND"
+  data-locale="vi-VN"
+&gt;&lt;/script&gt;</div>
+    <p>SDK đã tự động khởi tạo với config từ data-attributes trên trang này!</p>
+  </div>
+
+  <div class="demo-section">
+    <h2>📝 Cách 2: Khởi tạo bằng JavaScript</h2>
+    <div class="code-block">// Tạo instance mới với config tùy chỉnh
+const sdk = YourSDKManager.getInstance().createInstance({
+  siteId: 'custom-store',
+  theme: 'blue',
+  position: 'bottom-left',
+  currency: 'USD',
+  locale: 'en-US',
+  showFloatingButton: true
+});
+
+// Thêm sản phẩm vào giỏ
+sdk.addToCart('Product Name', 99.99);
+
+// Mở giỏ hàng
+sdk.openCart();
+
+// Lấy tổng tiền
+const total = sdk.getTotal();</div>
+    
+    <div class="demo-buttons">
+      <button class="demo-btn blue" onclick="createBlueSDK()">Tạo SDK theme Blue</button>
+      <button class="demo-btn green" onclick="createGreenSDK()">Tạo SDK theme Green</button>
+      <button class="demo-btn red" onclick="createRedSDK()">Tạo SDK theme Red</button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>📝 Cách 3: Render widget vào div cụ thể</h2>
+    <div class="code-block">&lt;div id="my-cart-widget"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  YourSDKManager.getInstance().createInstance({
+    siteId: 'widget-demo',
+    container: 'my-cart-widget',
+    showFloatingButton: false
+  });
+&lt;/script&gt;</div>
+    
+    <div class="widget-demo">
+      <p>Widget sẽ render ở đây:</p>
+      <div id="cart-widget-demo"></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>🎮 Test Public API</h2>
+    <div class="demo-buttons">
+      <button class="demo-btn purple" onclick="testAddToCart()">➕ Thêm sản phẩm</button>
+      <button class="demo-btn blue" onclick="testOpenCart()">🛒 Mở giỏ hàng</button>
+      <button class="demo-btn green" onclick="testGetTotal()">💰 Xem tổng tiền</button>
+      <button class="demo-btn red" onclick="testClearCart()">🗑️ Xóa giỏ hàng</button>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>📱 Mobile App Integration</h2>
+    <div class="code-block">// Android WebView
+WebView webView = new WebView(context);
+webView.getSettings().setJavaScriptEnabled(true);
+webView.loadUrl("https://yoursite.com/cart-page");
+
+// iOS WKWebView
+let webView = WKWebView()
+let url = URL(string: "https://yoursite.com/cart-page")!
+webView.load(URLRequest(url: url))</div>
+    <p>SDK tự động hoạt động trong WebView mà không cần config đặc biệt!</p>
+  </div>
+
+  <!-- Load SDK with default config -->
+  <script src="./dist/embed.js" 
+    data-site-id="demo-store"
+    data-theme="purple"
+    data-position="bottom-right"
+    data-currency="VND"
+    data-locale="vi-VN">
+  </script>
+  
+  <script>
+    // Test functions
+    function testAddToCart() {
+      const products = [
+        { name: 'iPhone 15 Pro', price: 28000000 },
+        { name: 'MacBook Air M3', price: 35000000 },
+        { name: 'AirPods Pro', price: 6000000 }
+      ];
+      const product = products[Math.floor(Math.random() * products.length)];
+      window.YourSDK.addToCart(product.name, product.price);
+      alert(`Đã thêm "${product.name}" vào giỏ hàng!`);
+    }
+
+    function testOpenCart() {
+      window.YourSDK.openCart();
+    }
+
+    function testGetTotal() {
+      const total = window.YourSDK.getTotal();
+      const formatted = new Intl.NumberFormat('vi-VN', { 
+        style: 'currency', 
+        currency: 'VND' 
+      }).format(total);
+      alert(`Tổng tiền trong giỏ: ${formatted}`);
+    }
+
+    function testClearCart() {
+      if (confirm('Bạn chắc chắn muốn xóa toàn bộ giỏ hàng?')) {
+        window.YourSDK.clearCart();
+        alert('Đã xóa giỏ hàng!');
+      }
+    }
+
+    function createBlueSDK() {
+      window.YourSDKManager.getInstance().createInstance({
+        siteId: 'blue-theme',
+        theme: 'blue',
+        position: 'bottom-left',
+        currency: 'USD',
+        locale: 'en-US'
+      });
+      alert('Đã tạo SDK với theme Blue ở góc trái dưới!');
+    }
+
+    function createGreenSDK() {
+      window.YourSDKManager.getInstance().createInstance({
+        siteId: 'green-theme',
+        theme: 'green',
+        position: 'top-right',
+        currency: 'EUR',
+        locale: 'de-DE'
+      });
+      alert('Đã tạo SDK với theme Green ở góc phải trên!');
+    }
+
+    function createRedSDK() {
+      window.YourSDKManager.getInstance().createInstance({
+        siteId: 'red-theme',
+        theme: 'red',
+        position: 'top-left',
+        currency: 'JPY',
+        locale: 'ja-JP'
+      });
+      alert('Đã tạo SDK với theme Red ở góc trái trên!');
+    }
+
+    // Create widget demo
+    setTimeout(() => {
+      window.YourSDKManager.getInstance().createInstance({
+        siteId: 'widget-demo',
+        container: 'cart-widget-demo',
+        showFloatingButton: false,
+        theme: 'green'
+      });
+    }, 1000);
+  </script>
+</body>
+</html>
