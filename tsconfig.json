@@ -1,8 +1,9 @@
 
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES2015",
     "module": "ESNext",
+    "lib": ["ES2015", "DOM"],
     "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,

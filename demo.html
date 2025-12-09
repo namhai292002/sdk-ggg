@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart SDK Demo</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .demo-container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .product-card {
+      border: 2px solid #eee;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .product-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+      transform: translateY(-5px);
+    }
+    .product-emoji {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+    .product-name {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .product-price {
+      color: #667eea;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .add-to-cart-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .add-to-cart-btn:hover {
+      transform: scale(1.05);
+    }
+    .info-box {
+      background: #f0f7ff;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+    .info-box h3 {
+      margin-top: 0;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>🛒 Shopping Cart SDK Demo</h1>
+    <p class="subtitle">Click vào nút giỏ hàng góc dưới phải để xem giỏ hàng!</p>
+    
+    <div class="info-box">
+      <h3>✨ Tính năng:</h3>
+      <ul>
+        <li>🎯 Nút floating giỏ hàng với badge số lượng</li>
+        <li>🎨 Popup giỏ hàng đẹp mắt</li>
+        <li>➕➖ Tăng/giảm số lượng sản phẩm</li>
+        <li>🗑️ Xóa sản phẩm khỏi giỏ</li>
+        <li>💰 Tính tổng tiền tự động</li>
+        <li>✅ Thanh toán (demo)</li>
+      </ul>
+    </div>
+
+    <h2>Sản phẩm</h2>
+    <div class="products">
+      <div class="product-card">
+        <div class="product-emoji">👕</div>
+        <div class="product-name">Áo thun</div>
+        <div class="product-price">150.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Áo thun', 150000)">Thêm vào giỏ</button>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-emoji">👖</div>
+        <div class="product-name">Quần jean</div>
+        <div class="product-price">350.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Quần jean', 350000)">Thêm vào giỏ</button>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-emoji">👟</div>
+        <div class="product-name">Giày thể thao</div>
+        <div class="product-price">500.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Giày thể thao', 500000)">Thêm vào giỏ</button>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-emoji">👜</div>
+        <div class="product-name">Túi xách</div>
+        <div class="product-price">250.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Túi xách', 250000)">Thêm vào giỏ</button>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-emoji">🧢</div>
+        <div class="product-name">Mũ lưỡi trai</div>
+        <div class="product-price">100.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Mũ lưỡi trai', 100000)">Thêm vào giỏ</button>
+      </div>
+      
+      <div class="product-card">
+        <div class="product-emoji">🕶️</div>
+        <div class="product-name">Kính mát</div>
+        <div class="product-price">200.000đ</div>
+        <button class="add-to-cart-btn" onclick="addProduct('Kính mát', 200000)">Thêm vào giỏ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load SDK -->
+  <script src="./dist/embed.js" data-site-id="demo-store"></script>
+  
+  <script>
+    function addProduct(name, price) {
+      // Call SDK method to add product
+      if (window.YourSDK && window.YourSDK.addToCart) {
+        window.YourSDK.addToCart(name, price);
+      }
+    }
+  </script>
+</body>
+</html>
