@@ -1,0 +1,5 @@
+name = "your-sdk"
+compatibility_date = "2025-12-09"
+
+[site]
+bucket = "./dist"
